@@ -35,9 +35,9 @@ namespace BlazorApp.Pages
             await GetAllCustomers();
         }
 
-        private async Task GetAllCustomers()
+        private async Task GetAllCustomers(int page = 1)
         {
-            customersResponse = await CustomerService.GetAllCustomersPage(currentPage);
+            customersResponse = await CustomerService.GetAllCustomersPage(page);
             if (customersResponse.Success)
             {
                 customers = customersResponse.Data.DataList;
