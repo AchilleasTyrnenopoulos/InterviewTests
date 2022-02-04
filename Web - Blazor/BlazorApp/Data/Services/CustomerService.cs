@@ -60,7 +60,22 @@ namespace BlazorApp.Data.Services
             ServiceResponse<List<Customer>> response = new ServiceResponse<List<Customer>>();
             List<Customer> customers = new List<Customer>();
 
+            int pageItems = 1;
 
+            try
+            {
+                int pageCount = (int)Math.Ceiling((double)_db.Customers.Count() / pageItems);
+
+                customers = await _db.Customers
+                                .Skip((page - 1) * pageItems)
+                                .Take(pageItems)
+                                .ToListAsync();
+            }
+            catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
 
             return response;
         }

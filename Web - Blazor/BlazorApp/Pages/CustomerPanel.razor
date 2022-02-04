@@ -1,7 +1,7 @@
 ﻿@page "/customer-panel"
 @inject Data.Services.ICustomerService CustomerService
 
-<h3>CustomerPanel</h3>
+<h1>Customer Panel</h1>
 
 @if (customers == null)
 {
@@ -28,23 +28,71 @@ else
         <tbody>
             @foreach (var customer in customers)
             {
-            <tr>
-                @{string localId = customer.Id;
-                }
-                <td>@customer.Id</td>
-                <td>@customer.CompanyName</td>
-                <td>@customer.ContactName</td>
-                <td>@customer.Address</td>
-                <td>@customer.City</td>
-                <td>@customer.Region</td>
-                <td>@customer.PostalCode</td>
-                <td>@customer.Country</td>
-                <td>@customer.Phone</td>
-                <td><button class="btn btn-primary">Edit</button></td>
-                <td><button class="btn btn-danger" @onclick="() => DeleteCustomer(localId)">Delete</button></td>
-            </tr>
+                <tr>
+                    @{string localId = customer.Id;
+                    }
+                    <td>@customer.Id</td>
+                    <td>@customer.CompanyName</td>
+                    <td>@customer.ContactName</td>
+                    <td>@customer.Address</td>
+                    <td>@customer.City</td>
+                    <td>@customer.Region</td>
+                    <td>@customer.PostalCode</td>
+                    <td>@customer.Country</td>
+                    <td>@customer.Phone</td>
+                    <td><button class="btn btn-primary" @onclick="() => EditButtonClick(localId)">Edit</button></td>
+                    <td><button class="btn btn-danger" @onclick="() => DeleteCustomer(localId)">Delete</button></td>
+                </tr>
             }
         </tbody>
     </table>
+
+    <div>
+        <button class="btn btn-primary mb-5" @onclick="() => AddCustomerButtonClick()">Add customer</button>
+    </div>
+
+    @if (showForm)
+    {
+        <h3>Customer Form</h3>
+        <EditForm Model="Customer" OnSubmit="HandleSubmit">
+            @*<div class="form-group">
+                <label>Id</label>
+                <InputText class="form-control" @bind-Value="Customer.Id"></InputText>
+            </div>*@
+            <div class="form-group">
+                <label>Company Name</label>
+                <InputText class="form-control" @bind-Value="Customer.CompanyName"></InputText>
+            </div>
+            <div class="form-group">
+                <label>Contact Name</label>
+                <InputText class="form-control" @bind-Value="Customer.ContactName"></InputText>
+            </div>
+            <div class="form-group">
+                <label>Adress</label>
+                <InputText class="form-control" @bind-Value="Customer.Address"></InputText>
+            </div>
+            <div class="form-group">
+                <label>City</label>
+                <InputText class="form-control" @bind-Value="Customer.City"></InputText>
+            </div>
+            <div class="form-group">
+                <label>Region</label>
+                <InputText class="form-control" @bind-Value="Customer.Region"></InputText>
+            </div>
+            <div class="form-group">
+                <label>Postal Code</label>
+                <InputText class="form-control" @bind-Value="Customer.PostalCode"></InputText>
+            </div>
+            <div class="form-group">
+                <label>Country</label>
+                <InputText class="form-control" @bind-Value="Customer.Country"></InputText>
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <InputText class="form-control" @bind-Value="Customer.Phone"></InputText>
+            </div>
+            <button type="submit" class="btn btn-primary mb-5">Submit</button>
+        </EditForm>
+    }
 }
 
