@@ -48,6 +48,25 @@ else
     </table>
 
     <div>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item">
+                        <a class="page-link">@i</a>
+                    </li>                    
+                }
+                <li class="page-item">
+                    <a class="page-link">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div>
         <button class="btn btn-primary mb-5" @onclick="() => AddCustomerButtonClick()">Add customer</button>
     </div>
 

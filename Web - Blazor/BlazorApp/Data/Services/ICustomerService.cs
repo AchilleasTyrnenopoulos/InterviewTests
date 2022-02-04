@@ -11,6 +11,7 @@ namespace BlazorApp.Data.Services
         //get
         Task<ServiceResponse<List<Customer>>> GetAllCustomers();
         Task<ServiceResponse<Customer>> GetCustomer(string id);
+        Task<ServiceResponse<PagedList<Customer>>> GetAllCustomersPage(int page);
 
         //create
         Task<ServiceResponse<bool>> CreateCustomer(Customer newCustomer);

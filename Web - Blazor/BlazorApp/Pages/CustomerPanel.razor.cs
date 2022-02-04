@@ -9,10 +9,16 @@ namespace BlazorApp.Pages
 {
     public partial class CustomerPanel
     {
-        ServiceResponse<List<Customer>> customersResponse = new ServiceResponse<List<Customer>>();
+        ServiceResponse<PagedList<Customer>> customersResponse = new ServiceResponse<PagedList<Customer>>();
         List<Customer> customers = new List<Customer>();
+        
         Customer Customer { get; set; } = new Customer();
         bool showForm = false;
+
+        //pagination
+        int currentPage = 1;
+        int totalPages = 1;
+        int radius = 1;
 
         protected override async Task OnInitializedAsync()
         {
@@ -31,10 +37,12 @@ namespace BlazorApp.Pages
 
         private async Task GetAllCustomers()
         {
-            customersResponse = await CustomerService.GetAllCustomers();
+            customersResponse = await CustomerService.GetAllCustomersPage(currentPage);
             if (customersResponse.Success)
             {
-                customers = customersResponse.Data;
+                customers = customersResponse.Data.DataList;
+                currentPage = customersResponse.Data.CurrentPage;
+                totalPages = customersResponse.Data.TotalPages;
             }
         }
 
@@ -58,35 +66,9 @@ namespace BlazorApp.Pages
             ToggleShowForm(!showForm);
         }       
 
-        private async Task EditButtonClick(string id)
+        private void EditButtonClick(string id)
         {
             ToggleShowForm(!showForm);
-
-            if (showForm)
-            {
-                try
-                {
-                    //get customer
-                    Customer customer = customers.Where(c => c.Id == id).SingleOrDefault();
-
-                    //fill values of form
-                    Customer = customer;
-
-                    //update customer
-                    await UpdateCustomer(customer);
-
-                    await GetAllCustomers();
-                }
-                catch (Exception ex)
-                {
-                    //show exception message
-                }
-            }
-            else
-            {
-                //re-initialize Customer model
-                Customer = new Customer();
-            }
         }
 
         private async Task HandleSubmit()

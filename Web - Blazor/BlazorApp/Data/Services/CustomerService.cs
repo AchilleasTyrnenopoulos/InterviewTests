@@ -55,10 +55,10 @@ namespace BlazorApp.Data.Services
         }
 
         //pagination
-        public async Task<ServiceResponse<List<Customer>>> GetAllCustomersPage(int page)
+        public async Task<ServiceResponse<PagedList<Customer>>> GetAllCustomersPage(int page)
         {
-            ServiceResponse<List<Customer>> response = new ServiceResponse<List<Customer>>();
-            List<Customer> customers = new List<Customer>();
+            ServiceResponse<PagedList<Customer>> response = new ServiceResponse<PagedList<Customer>>();
+            PagedList<Customer> customers = new PagedList<Customer>();
 
             int pageItems = 1;
 
@@ -66,10 +66,14 @@ namespace BlazorApp.Data.Services
             {
                 int pageCount = (int)Math.Ceiling((double)_db.Customers.Count() / pageItems);
 
-                customers = await _db.Customers
+                customers.DataList = await _db.Customers
                                 .Skip((page - 1) * pageItems)
                                 .Take(pageItems)
                                 .ToListAsync();
+                customers.CurrentPage = page;
+                customers.TotalPages = pageCount;
+
+                response.Data = customers;
             }
             catch(Exception ex)
             {
