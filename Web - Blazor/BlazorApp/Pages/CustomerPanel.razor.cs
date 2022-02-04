@@ -14,8 +14,24 @@ namespace BlazorApp.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            customersResponse = await CustomerService.GetAllCustomers(); 
-            if(customersResponse.Success)
+            await GetAllCustomers();
+        }
+
+        private async Task DeleteCustomer(string id)
+        {
+            //delete customer
+            await CustomerService.DeleteCustomer(id);
+
+            //get customers again
+            await GetAllCustomers();
+
+            //StateHasChanged();
+        }
+
+        private async Task GetAllCustomers()
+        {
+            customersResponse = await CustomerService.GetAllCustomers();
+            if (customersResponse.Success)
             {
                 customers = customersResponse.Data;
             }

@@ -53,6 +53,17 @@ namespace BlazorApp.Data.Services
 
             return response;
         }
+
+        //pagination
+        public async Task<ServiceResponse<List<Customer>>> GetAllCustomersPage(int page)
+        {
+            ServiceResponse<List<Customer>> response = new ServiceResponse<List<Customer>>();
+            List<Customer> customers = new List<Customer>();
+
+
+
+            return response;
+        }
         #endregion
 
         //create new customer

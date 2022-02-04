@@ -21,12 +21,16 @@ else
                 <th>Postal Code</th>
                 <th>Country</th>
                 <th>Phone</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var customer in customers)
             {
             <tr>
+                @{string localId = customer.Id;
+                }
                 <td>@customer.Id</td>
                 <td>@customer.CompanyName</td>
                 <td>@customer.ContactName</td>
@@ -36,6 +40,8 @@ else
                 <td>@customer.PostalCode</td>
                 <td>@customer.Country</td>
                 <td>@customer.Phone</td>
+                <td><button class="btn btn-primary">Edit</button></td>
+                <td><button class="btn btn-danger" @onclick="() => DeleteCustomer(localId)">Delete</button></td>
             </tr>
             }
         </tbody>
