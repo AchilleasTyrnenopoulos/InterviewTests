@@ -1,11 +1,16 @@
 ﻿@page "/customer-panel"
 @inject Data.Services.ICustomerService CustomerService
+@attribute [Authorize]
 
 <h1>Customer Panel</h1>
 
 @if (customers == null)
 {
     <p><em>Loading...</em></p>
+}
+else if(customers.Count == 0)
+{ 
+    <p>No customers found.</p>
 }
 else
 {

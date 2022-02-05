@@ -60,7 +60,8 @@ namespace BlazorApp.Data.Services
             ServiceResponse<PagedList<Customer>> response = new ServiceResponse<PagedList<Customer>>();
             PagedList<Customer> customers = new PagedList<Customer>();
 
-            int pageItems = 1;
+            //the amount of customers shown in each page
+            int pageItems = 2;
 
             try
             {

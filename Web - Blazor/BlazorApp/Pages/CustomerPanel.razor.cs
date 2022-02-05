@@ -32,7 +32,7 @@ namespace BlazorApp.Pages
             await CustomerService.DeleteCustomer(id);
 
             //get customers again
-            await GetAllCustomers();
+            await GetAllCustomers(currentPage);
         }
 
         private async Task GetAllCustomers(int page = 1)
@@ -85,7 +85,7 @@ namespace BlazorApp.Pages
                 await AddCustomer(Customer);
             }
 
-            await GetAllCustomers();
+            await GetAllCustomers(currentPage);
             ToggleShowForm(false);
         }
         #endregion

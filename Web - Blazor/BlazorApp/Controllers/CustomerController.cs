@@ -36,9 +36,9 @@ namespace BlazorApp.Controllers
             return await _customerService.GetCustomer(id);
         }
         #endregion
-
+        
         //api/customer/new
-        [HttpPost("new")]
+        [HttpPost("new")]        
         public async Task<ServiceResponse<bool>> CreateCustomer(Customer customer)
         {
             return await _customerService.CreateCustomer(customer);
